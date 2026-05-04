@@ -1,8 +1,16 @@
 
+import { useContext } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../provider/AuthProvider'
 
 const Navber = () => {
+
+    //------>  usertest  
+    const { usertest } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
+
+
 
     const navinfo = <>
 
@@ -30,7 +38,15 @@ const Navber = () => {
                             {navinfo}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl"></a>
+
+                    <div className='flex items-center'>
+                        <img className='w-12 rounded-full ' src={usertest.photo_url} alt="" />
+
+                        <h3 className=" text-xl px-4 uppercase font-bold">MD. {usertest.name}</h3>
+
+                        <h3 className=" text-xl px-4  font-bold">{user && user.name || "Mr. Been"}</h3>
+                        <h3 className=" text-xl">{usertest.email}</h3>
+                    </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">

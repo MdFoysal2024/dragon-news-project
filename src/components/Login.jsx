@@ -1,11 +1,25 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 
 const Login = () => {
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+
     const handleLogin = event => {
-       event.preventDefault()
-        console.log(' handle Login')
+        event.preventDefault()
+        console.log(' handle Login');
+
+
+        const form = event.target;
+
+        const email = form.email.value;
+        const password = form.password.value;
+
+        console.log(email, password)
+
+        navigate('/')
     }
 
 
@@ -13,13 +27,10 @@ const Login = () => {
         <div className='container mx-auto items-center md:my-24 justify-center  w-full flex flex-col md:flex-row lg:flex-row '>
 
 
-
-
-
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+            <div className="card bg-base-100 rounded-none w-full max-w-lg shrink-0 shadow-2xl">
                 <div>
-                    <h2 className=' text-xl md:text-xl lg:text-2xl font-bold text-center pt-6'>
-                        <span className="text-gray-600"> Login Your Account </span>
+                    <h2 className=' text-xl font-bold text-center pt-8'>
+                        <span className="text-gray-600 "> Login Your Account </span>
 
                     </h2>
                 </div>
@@ -29,11 +40,12 @@ const Login = () => {
 
                     className="card-body">
                     <fieldset className="fieldset">
+
                         <label className="label text-gray-800 font-semibold">Email</label>
-                        <input type="email" name="email" className="input  bg-red-100 border-0" placeholder="Enter your email address" />
+                        <input type="email" name="email" className="input w-full  bg-red-100 border-0" placeholder="Enter your email address" />
 
                         <label className="label text-gray-800 font-semibold">Password</label>
-                        <input type="password" name="password" className="input  bg-red-100 border-0" placeholder="Enter your password" />
+                        <input type="password" name="password" className="input w-full  bg-red-100 border-0" placeholder="Enter your password" />
 
                         <div><a className="link link-hover text-gray-800 font-semibold">Forgot password?</a></div>
 

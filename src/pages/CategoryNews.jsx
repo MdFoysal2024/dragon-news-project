@@ -18,19 +18,37 @@ const CategoryNews = () => {
       <h3 className='text-left font-semibold mb-4'>Dragon News Home</h3>
       <p className='text-gray-400 text-sm text-left'>{news.length} News Found by Category</p>
 
-{/* news Cart section */}
-<div>
-  {
-    news.map(singleNews=><NewsCart
-      key={singleNews._id}
+      {/* news Cart section */}
 
-    //  singleNews={singleNews} -----> newsData=singleNews
-      newsData={singleNews} 
-    ></NewsCart>)
-  }
-</div>
+      <div>
+        
+        {news.length ?
 
-    </div>
+          <>
+            <div>
+              {
+                news.map(singleNews => <NewsCart
+                  key={singleNews._id}
+
+                  //  singleNews={singleNews} -----> newsData=singleNews
+                  newsData={singleNews}
+                ></NewsCart>)
+              }
+            </div>
+          </>
+
+          :
+
+          <>
+            <p className='text-center pt-12 font-semibold text-2xl text-red-500'>No Data Available Here...
+            </p>
+          </>
+
+        }
+      </div>
+
+
+    </div >
   );
 }
 

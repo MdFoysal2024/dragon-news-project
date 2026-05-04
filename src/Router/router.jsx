@@ -4,6 +4,7 @@ import Login from "../components/Login";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import CategoryNews from "../pages/CategoryNews";
 import AuthLayout from "../Layout/AuthLayout";
+import Register from "../components/Register";
 
 
 
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/auth/register',
-                element:<h2>Register Page</h2>
+                element:<Register></Register>
             },
         ]
     },
