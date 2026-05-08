@@ -3,12 +3,13 @@ import { useContext } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../provider/AuthProvider'
+import { RiLogoutCircleRLine } from 'react-icons/ri'
 
 const Navber = () => {
 
     //------>  usertest  
     const { usertest } = useContext(AuthContext)
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
 
 
 
@@ -55,7 +56,25 @@ const Navber = () => {
                 </div>
                 <div className="navbar-end flex gap-4">
 
-                    <Link to='/auth/login' className="btn flex gap-4 py-2">  <FaUserCircle className='text-3xl ' />Login</Link>
+
+
+                    {
+                        user && user?.email ?
+
+                            (<Link
+                                onClick={logOut}
+                                to='/auth/login'
+                                className="btn bg-red-600 rounded-full text-white flex gap-2 ">  <RiLogoutCircleRLine className='text-3xl text-white' />Logout</Link>)
+
+                            :
+
+                            (<Link
+                                to='/auth/login'
+                                className="btn flex gap-4 py-2">  <FaUserCircle className='text-3xl ' />Login</Link>)
+                    }
+
+
+
                 </div>
             </div>
         </div>

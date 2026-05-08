@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 
 const Login = () => {
@@ -7,19 +9,50 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
-    const handleLogin = event => {
-        event.preventDefault()
+    const { signIn, setUser } = useContext(AuthContext);
+
+
+    const handleLogin = e => {
+        e.preventDefault()
         console.log(' handle Login');
 
 
-        const form = event.target;
+        // const form = event.target;
+        // const email = form.email.value;
+        // const password = form.password.value;
+        // console.log(email, password)
 
-        const email = form.email.value;
-        const password = form.password.value;
+        // navigate('/')
+
+
+
+        // New Formula---------->
+        const form = new FormData(e.target)
+
+        const email = form.get("email");
+        const password = form.get("password");
 
         console.log(email, password)
+        console.log({ email, password })
 
-        navigate('/')
+
+
+        signIn(email, password)
+            .then((result) => {
+                const user = result.user;
+                setUser(user)
+                console.log(user);
+                navigate('/')
+            })
+            .catch((error) => {
+                // const errorCode = error.code;
+                //const errorMessage = error.message;
+                //console.log(errorCode, errorMessage);
+
+                alert(error.code);
+            });
+
+
     }
 
 
