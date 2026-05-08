@@ -1,12 +1,26 @@
 
+import { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../provider/AuthProvider';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const Register = () => {
+
+
+
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
+    const { createNewUser, setUser } = useContext(AuthContext);
+
+
+    const notify = () => toast("New User Created Succesfully");
 
     const handleRegister = e => {
         e.preventDefault()
@@ -33,7 +47,23 @@ const Register = () => {
         const password = form.get("password");
 
         console.log(name, photo_url, email, password)
-        console.log({name, photo_url, email, password})
+        console.log({ name, photo_url, email, password })
+
+
+
+        createNewUser(email, password)
+            .then((result) => {
+                const user = result.user;
+                setUser(user)
+                console.log(user);
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
+
     }
 
 
@@ -71,7 +101,14 @@ const Register = () => {
 
 
                         <div className="form-control mt-6">
-                            <input type="submit" className="btn w-full bg-[#333333] text-white border-none text-lg hover:bg-red-800" value='Register' />
+                            <input
+                                type="submit"
+                                className="btn w-full bg-[#333333] text-white border-none text-lg hover:bg-red-800"
+                                onClick={notify}
+                                value='Register' />
+
+                            <ToastContainer />
+
                         </div>
                     </fieldset>
                 </form>

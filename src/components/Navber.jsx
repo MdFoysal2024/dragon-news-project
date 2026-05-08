@@ -39,7 +39,7 @@ const Navber = () => {
                         </ul>
                     </div>
 
-                    <div className='flex items-center'>
+                    <div className='md:flex hidden items-center'>
                         <img className='w-12 rounded-full ' src={usertest.photo_url} alt="" />
 
                         <h3 className=" text-xl px-4 uppercase font-bold">MD. {usertest.name}</h3>
