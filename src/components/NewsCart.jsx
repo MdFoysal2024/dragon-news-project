@@ -6,6 +6,7 @@ import { FaRegEye } from "react-icons/fa";
 
 import { Rating } from '@smastrom/react-rating';
 import '@smastrom/react-rating/style.css';
+import { Link } from 'react-router-dom';
 
 
 const NewsCart = ({ newsData }) => {
@@ -45,7 +46,7 @@ const NewsCart = ({ newsData }) => {
                 
             </div> */}
 
-<div
+            <div
                 className=' text-2xl text-left py-4 font-semibold'
 
             >
@@ -69,7 +70,7 @@ const NewsCart = ({ newsData }) => {
                 />
             </div>
 
-            
+
 
 
             <div>
@@ -91,6 +92,15 @@ const NewsCart = ({ newsData }) => {
                 </div>
             </div>
 
+            <div>
+                <p
+                    className="py-2 text-justify text-gray-400"
+                >
+                    {newsData.details.slice(0, 200)}......{" "}
+
+                    <Link to={`/news/${newsData._id}`} className=' text-blue-500 font-semibold'>Read More</Link>
+                </p>
+            </div>
 
             <div className='flex justify-between py-4'>
 

@@ -1,13 +1,19 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
 
 const Login = () => {
 
+    const [error, setError] = useState({})
+
+
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || '/';
+    console.log(location)
+
+    const from = location?.state?.from?.pathname || '/';
+    console.log(from)
 
     const { signIn, setUser } = useContext(AuthContext);
 
@@ -42,14 +48,19 @@ const Login = () => {
                 const user = result.user;
                 setUser(user)
                 console.log(user);
-                navigate('/')
+                //navigate(location?.state ? location.state : "/");-->  এই লাইনটা উপরের  ভেরিয়েবল const from = ...; এর ভিতরে রেখে এখানে শুধু  from কে আনা হইছে।
+
+                // navigate(from, { replace: true });
+                navigate(location?.state ? location.state : '/');
             })
-            .catch((error) => {
+            .catch((err) => {
                 // const errorCode = error.code;
                 //const errorMessage = error.message;
                 //console.log(errorCode, errorMessage);
 
-                alert(error.code);
+                //alert(error.code);
+
+                setError({ ...error, login: err.code })
             });
 
 
@@ -81,6 +92,15 @@ const Login = () => {
                         <input type="password" name="password" className="input w-full  bg-red-100 border-0" placeholder="Enter your password" />
 
                         <div><a className="link link-hover text-gray-800 font-semibold">Forgot password?</a></div>
+
+                        <div>
+
+                            {error.login &&
+                                (<p className="text-center text-red-600 font-medium pb-6">incorrect email or password</p>)
+                                
+                               
+                                }
+                        </div>
 
 
                         <div className="form-control mt-6">

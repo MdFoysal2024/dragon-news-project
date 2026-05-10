@@ -6,6 +6,7 @@ const CategoryNews = () => {
   // const data = useLoaderData();
   //const { data } = useLoaderData();
   //console.log(data);
+  
   // Distructure------>
   const { data: news } = useLoaderData();
   console.log(news);

@@ -1,5 +1,5 @@
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 
@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
 
-
+    const [error, setError] = useState({})
 
 
     const navigate = useNavigate();
@@ -44,7 +44,16 @@ const Register = () => {
         const name = form.get("name");
         const photo_url = form.get("photo_url");
         const email = form.get("email");
+
         const password = form.get("password");
+
+        if (password.length < 6) {
+            setError({ ...error, password: "password must be more then 6 character" });
+            return;
+
+        }
+
+
 
         console.log(name, photo_url, email, password)
         console.log({ name, photo_url, email, password })
@@ -98,7 +107,14 @@ const Register = () => {
                         <input type="password" name="password" className="input w-full bg-red-100 border-0" placeholder="Enter your password" />
 
                         <div><a className="link link-hover text-gray-800 font-semibold">Forgot password?</a></div>
+                        <div>
 
+                            {error.password &&
+                                (<p className="text-center text-red-600 font-medium pb-6">{error.password}</p>)
+
+
+                            }
+                        </div>
 
                         <div className="form-control mt-6">
                             <input
